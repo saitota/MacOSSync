@@ -43,9 +43,20 @@ symlinks: ##set symlinks to dotfiles
 	#starship
 	@ls ~/.config/starship.toml || ln -s $$(pwd)/dotfiles/.config/starship.toml ~/.config/starship.toml
 	#vim
-	#@ls ~/.vim || ln -s $$(pwd)/dotfiles/.vim/ ~/.vim
-	#@ls ~/.vimrc || ln -s $$(pwd)/dotfiles/.vimrc ~/.vimrc
+	@ls ~/.vim || ln -s $$(pwd)/dotfiles/.vim/ ~/.vim
+	@ls ~/.vimrc || ln -s $$(pwd)/dotfiles/.vimrc ~/.vimrc
 	#nvim
 	#@ls ~/.config/nvim/ || ln -s $$(pwd)/dotfiles/.config/nvim/ ~/.config/nvim
+
+unlinks:
+	unlink ~/.hyper.js || true
+	unlink ~/Library/Application\ Support/terminus/config.yaml || true
+	unlink ~/.config/fish/config.fish || true
+	unlink ~/.zshrc || true
+	unlink ~/.config/starship.toml || true
+	unlink ~/.vim || true
+	unlink ~/.vimrc || true
+	unlink ~/.config/nvim || true
+
 
 
