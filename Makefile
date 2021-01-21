@@ -33,8 +33,8 @@ symlinks: ##set symlinks to dotfiles
 	#hyper
 	@ls ~/.hyper.js || ln -s $$(pwd)/dotfiles/.hyper.js ~/.hyper.js
 	#terminus
-	@ls ~/Library/Application\ Support/terminus/ || mkdir ~/Library/Application\ Support/terminus/
-	@ls ~/Library/Application\ Support/terminus/config.yaml || ln -s $$(pwd)/dotfiles/Library/Application\ Support/terminus/config.yaml ~/Library/Application\ Support/terminus/config.yaml
+	#@ls ~/Library/Application\ Support/terminus/ || mkdir ~/Library/Application\ Support/terminus/
+	#@ls ~/Library/Application\ Support/terminus/config.yaml || ln -s $$(pwd)/dotfiles/Library/Application\ Support/terminus/config.yaml ~/Library/Application\ Support/terminus/config.yaml
 	#fish
 	#@ls ~/.config/fish/ || mkdir ~/.config/fish/
 	#@ls ~/.config/fish/config.fish || ln -s $$(pwd)/dotfiles/.config/fish/config.fish ~/.config/fish/config.fish
@@ -43,8 +43,8 @@ symlinks: ##set symlinks to dotfiles
 	#starship
 	@ls ~/.config/starship.toml || ln -s $$(pwd)/dotfiles/.config/starship.toml ~/.config/starship.toml
 	#vim
-	@ls ~/.vim || ln -s $$(pwd)/dotfiles/.vim/ ~/.vim
-	@ls ~/.vimrc || ln -s $$(pwd)/dotfiles/.vimrc ~/.vimrc
+	#@ls ~/.vim || ln -s $$(pwd)/dotfiles/.vim/ ~/.vim
+	#@ls ~/.vimrc || ln -s $$(pwd)/dotfiles/.vimrc ~/.vimrc
 	#nvim
 	#@ls ~/.config/nvim/ || ln -s $$(pwd)/dotfiles/.config/nvim/ ~/.config/nvim
 
