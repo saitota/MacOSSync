@@ -1,0 +1,67 @@
+# secrets
+credentials
+passwd
+shadow
+*.profile
+*.bashrc
+*.zshrc
+*.zshenv
+*_ecdsa
+*_ed25519
+*_history
+*_rsa
+*.boto3
+*.cer
+*.cer
+*.der
+*.key
+*.key
+*.p12
+*.p7b
+*.pcap
+*.pem
+*.pfx
+*.pub
+*.spc
+*.sql
+*.sst
+*.stl
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Python
+__pycache__/
+.pytest_cache/
+
+# golang
+*.exe
+*.dll
+*.so
+*.dylib
+
+# java
+*.jar
+*.war
+*.ear
+
+# node
+node_modules/
+jspm_packages/
+.serverless/
+
+# see https://github.com/github/gitignore
