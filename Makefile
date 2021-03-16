@@ -2,7 +2,7 @@
 .DEFAULT_GOAL := help
 WORK_PATH   := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/
 DOT_PATH    := $(WORK_PATH)/dotfiles
-DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
+DOTFILES    := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
 help: ##print this message
 	@echo "MacOS setup automation makefile"
@@ -12,21 +12,21 @@ help: ##print this message
 		| awk '{sub(":.*##", ": ##", $$0);print $$0}' \
 		| awk -F " *?##*?" '{printf "\033[36m%-30s\033[0m %-50s %s\n", $$1, $$2, $$3}'
 
-setup: bundle upgrade fonts symlinks ##install brew/cask-brew/fonts and set symlink to dotfiles
+setup: brew bundle upgrade fonts symlinks ##install brew/cask-brew/fonts and set symlink to dotfiles
 
 fonts: ##install some fonts
 	@ls ~/Library/Fonts/Cascadia.ttf || curl -L https://github.com/microsoft/cascadia-code/releases/download/v1909.16/Cascadia.ttf > ~/Library/Fonts/Cascadia.ttf
 	@ls ~/Library/Fonts/Source\ Code\ Pro\ for\ Powerline.otf || curl -L https://github.com/powerline/fonts/raw/master/SourceCodePro/Source%20Code%20Pro%20for%20Powerline.otf > ~/Library/Fonts/Source\ Code\ Pro\ for\ Powerline.otf
-	@ls ~/Library/Fonts/SFMonoSquare-Regular.otf || brew tap delphinus/sfmono-square && brew install sfmono-square && cp /usr/local/opt/sfmono-square/share/fonts/SFMonoSquare-* ~/Library/Fonts/
-	@ls ~/Library/Fonts/Hack*.ttf || brew tap homebrew/cask-fonts && brew install --cask font-hack-nerd-font
+	#@ls ~/Library/Fonts/SFMonoSquare-Regular.otf || brew tap delphinus/sfmono-square && brew install sfmono-square && cp /usr/local/opt/sfmono-square/share/fonts/SFMonoSquare-* ~/Library/Fonts/
+	#@ls ~/Library/Fonts/Hack*.ttf || brew tap homebrew/cask-fonts && brew install --cask font-hack-nerd-font
 
-brew: ##install brew/cask-brew
-	@which brew || ( /usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" ; brew tap caskroom/cask )
+brew: ##install brew
+	which brew || (curl -fsSL "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" --output /var/tmp/install.sh && /bin/bash /var/tmp/install.sh && echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile && eval "$$(/opt/homebrew/bin/brew shellenv)" )
 
-upgrade: brew ##update & upgrade brew
-	@brew update; brew upgrade; brew cask upgrade;
+upgrade: ##update & upgrade brew
+	@brew update; brew upgrade;
 
-bundle: brew ##install brew bundle, see ./Brewfile
+bundle: ##install brew bundle, see ./Brewfile
 	brew bundle
 
 symlinks: ##set symlinks to dotfiles
@@ -41,12 +41,15 @@ symlinks: ##set symlinks to dotfiles
 	#zsh
 	@ls ~/.zshrc || ln -s $$(pwd)/dotfiles/.zshrc ~/.zshrc
 	#starship
-	@ls ~/.config/starship.toml || ln -s $$(pwd)/dotfiles/.config/starship.toml ~/.config/starship.toml
+	@ls ~/.config/starship.toml || mkdir ~/.config/ || ln -s $$(pwd)/dotfiles/.config/starship.toml ~/.config/starship.toml
 	#vim
 	@ls ~/.vim || ln -s $$(pwd)/dotfiles/.vim/ ~/.vim
 	@ls ~/.vimrc || ln -s $$(pwd)/dotfiles/.vimrc ~/.vimrc
 	#nvim
 	#@ls ~/.config/nvim/ || ln -s $$(pwd)/dotfiles/.config/nvim/ ~/.config/nvim
+	#vscode
+	#@ls ~/Library/Application\ Support/Code/User || ln -s $$(pwd)/dotfiles/vscode/User ~/Library/Application\ Support/Code/User
+	#@ls ~/.vscode/extensions || ln -s $$(pwd)/dotfiles/vscode/extensions ~/.vscode/extensions
 
 unlinks:
 	unlink ~/.hyper.js || true
@@ -58,5 +61,6 @@ unlinks:
 	unlink ~/.vimrc || true
 	unlink ~/.config/nvim || true
 
-
-
+dump:
+	mv ./Brewfile ./Brewfile_bk
+	brew bundle dump

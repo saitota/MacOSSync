@@ -1,0 +1,87 @@
+version: '3'
+
+tasks:
+  setup-macos:
+    deps: [setup-brew,brew-bundle,symlinks,allow-touch-sodo]
+
+  download-task:
+    - sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
+    - task --version
+
+  brew-bundle:
+    cmds:
+      - brew bundle
+
+  dump:
+      - mv ./Brewfile ./Brewfile_bk
+      - brew bundle dump
+
+  upgrade:
+    cmds:
+      - brew cleanup
+      - brew tap --repair
+      - brew update
+      - brew upgrade
+      - brew upgrade --cask
+      - brew upgrade --cask --greedy
+
+  symlinks:
+    cmds:
+      - echo "hyper"
+      - ls ~/.hyper.js || ln -s $(pwd)/dotfiles/.hyper.js ~/.hyper.js
+      - echo "zsh"
+      - ls ~/.zshrc || ln -s $(pwd)/dotfiles/.zshrc ~/.zshrc
+      - echo "starship"
+      - ls ~/.config/starship.toml || mkdir ~/.config/ || ln -s $(pwd)/dotfiles/.config/starship.toml ~/.config/starship.toml
+      - echo "vim"
+      - ls ~/.vim || ln -s $(pwd)/dotfiles/.vim/ ~/.vim
+      - ls ~/.vimrc || ln -s $(pwd)/dotfiles/.vimrc ~/.vimrc
+      #- echo "terminus"
+      #- ls ~/Library/Application\ Support/terminus/ || mkdir ~/Library/Application\ Support/terminus/
+      #- ls ~/Library/Application\ Support/terminus/config.yaml || ln -s $(pwd)/dotfiles/Library/Application\ Support/terminus/config.yaml ~/Library/Application\ Support/terminus/config.yaml
+      #- echo "fish"
+      #- ls ~/.config/fish/ || mkdir ~/.config/fish/
+      #- ls ~/.config/fish/config.fish || ln -s $(pwd)/dotfiles/.config/fish/config.fish ~/.config/fish/config.fish
+      #- echo "nvim"
+      #- ls ~/.config/nvim/ || ln -s $(pwd)/dotfiles/.config/nvim/ ~/.config/nvim
+      #- echo "vscode"
+      #- ls ~/Library/Application\ Support/Code/User || ln -s $(pwd)/dotfiles/vscode/User ~/Library/Application\ Support/Code/User
+
+  setup-brew:
+    cmds:
+      - which brew || echo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+      - eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  unlink:
+    cmds:
+      - unlink ~/.hyper.js || true
+      - unlink ~/Library/Application\ Support/terminus/config.yaml || true
+      - unlink ~/.config/fish/config.fish || true
+      - unlink ~/.zshrc || true
+      - unlink ~/.config/starship.toml || true
+      - unlink ~/.vim || true
+      - unlink ~/.vimrc || true
+      - unlink ~/.config/nvim || true
+
+  install-fonts:
+    cmds:
+      - brew install --cask font-hack-nerd-font
+      - brew install --cask font-cascadia-code
+      - brew install --cask font-cascadia-code-pl
+      - brew install --cask font-cascadia-mono
+      - brew install --cask font-cascadia-mono-pl
+      - brew install svn && brew install --cask  font-source-code-pro-for-powerline
+
+  allow-touch-sodo:
+    cmds:
+      - |
+        # pam_tidの存在チェック（間違えてLinux環境などで実行されたら中断する）
+        test -f /usr/lib/pam/pam_tid.so.2 || exit 1
+        # sudoでTouchIDが使えるようにする
+        if ! grep -Eq '^auth\s.*\spam_tid\.so$' /etc/pam.d/sudo; then
+          ( set -e; set -o pipefail
+            # 最初の auth として pam_tid.so を追加
+            pam_sudo=$(awk 'fixed||!/^auth /{print} !fixed&&/^auth/{print "auth       sufficient     pam_tid.so";print;fixed=1}' /etc/pam.d/sudo)
+            sudo tee /etc/pam.d/sudo <<<"$pam_sudo"
+          )
+        fi

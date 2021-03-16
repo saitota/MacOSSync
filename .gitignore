@@ -4,6 +4,7 @@ passwd
 shadow
 *.profile
 *.bashrc
+*.zshrc
 *.zshenv
 *_ecdsa
 *_ed25519
@@ -44,28 +45,7 @@ xcuserdata/
 !.vscode/extensions.json
 workspaceStorage/
 globalStorage/
-
-# Python
-__pycache__/
-.pytest_cache/
-
-# golang
-*.exe
-*.dll
-*.so
-*.dylib
-
-# java
-*.jar
-*.war
-*.ear
-
-# node
-node_modules/
-jspm_packages/
-.serverless/
-
+extensions/
+!extensions/dummy.txt
 
 # see https://github.com/github/gitignore
-
-Brewfile.lock.json

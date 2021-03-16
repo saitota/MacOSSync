@@ -6,20 +6,21 @@ $directory$aws$python$git_branch$git_commit$git_state$git_status$terraform$time$
 $battery$character"""
 
 # Disable the package module, hiding it from the prompt completely
-[package]
-disabled = true
+#[package]
+#disabled = true
 
-[git_status]
-disabled = true
+# too slow
+#[git_status]
+#disabled = true
 
 [aws]
 format = "[$symbol$profile(\\($region\\))]($style) "
-style = "bold blue"
+style = ""
 symbol = "☁ "
 
 [terraform]
 symbol = "💠 "
-show_version = true
+#show_version = true
 
 [gcloud]
 disabled = true
@@ -52,18 +53,10 @@ style = "bold yellow"
 
 [cmd_duration]
 min_time = 0
-format = "[$duration](bold yellow)"
-
-# too slow
-#[git_state]
-#disabled = true
+format = "[$duration]($style)"
+style = "yellow"
 
 [time]
 disabled = false
 format = "[$time]($style) "
-style = "bold blue bg:#202060"
-
-#[character]
-#symbol = "➜"
-#error_symbol = "✗"
-#use_symbol_for_status = true
+style = "green"

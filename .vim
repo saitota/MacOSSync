@@ -1,1 +1,0 @@
-/Users/takuro.saito/Dropbox/MacOsSyncronizer/dotfiles/.vim/
