@@ -58,5 +58,6 @@ unlinks:
 	unlink ~/.vimrc || true
 	unlink ~/.config/nvim || true
 
-
-
+dump:
+	mv ./Brewfile ./Brewfile_bk
+	brew bundle dump
