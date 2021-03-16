@@ -5,7 +5,6 @@ tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "wata727/tflint"
-
 brew "awscli"
 brew "exa"
 brew "fish"
@@ -29,7 +28,6 @@ brew "terraformer"
 brew "tfenv"
 brew "tflint"
 brew "tree"
-
 cask "alt-c"
 cask "biscuit"
 cask "blackhole"
@@ -52,8 +50,9 @@ cask "slack"
 cask "spotify"
 cask "station"
 cask "visual-studio-code"
-
 mas "Copy 'Em", id: 876540291
+mas "Keynote", id: 409183694
+mas "LINE", id: 539883307
 mas "Magnet", id: 441258766
 mas "RunCat", id: 1429033973
 mas "Skitch", id: 425955336
