@@ -77,14 +77,14 @@ bindkey '^[[B' history-substring-search-down
 zinit light reegnz/jq-zsh-plugin
 
 # zsh plugin: enhancd
-zinit ice \
-  atclone'rm -rf conf.d; rm -rf functions; rm -f *.fish;' \
-  pick'init.sh' \
-  nocompile'!' \
-  wait'!0' 
-zinit light b4b4r07/enhancd
-export ENHANCD_FILTER=fzf
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+#zinit ice \
+#  atclone'rm -rf conf.d; rm -rf functions; rm -f *.fish;' \
+#  pick'init.sh' \
+#  nocompile'!' \
+#  wait'!0' 
+#zinit light b4b4r07/enhancd
+#export ENHANCD_FILTER=fzf
+#export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # experience
 #alias jq='echo "use jid instead"'
@@ -159,6 +159,7 @@ function mkcd() {
 alias pwdc='pwd | tr -d "\n" | pbcopy'
 
 function fetchall() {
+  ls ~/work/ | awk '{print "cd ~/work/" $1 "&& pwd && git fetch"}' | bash
   say done
 }
 

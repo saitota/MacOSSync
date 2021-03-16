@@ -2,7 +2,7 @@
 add_newline = false
 
 format = """
-$directory$aws$git_branch$git_commit$git_state$git_status$terraform$time$cmd_duration
+$directory$aws$python$git_branch$git_commit$git_state$git_status$terraform$time$cmd_duration
 $battery$character"""
 
 # Disable the package module, hiding it from the prompt completely
